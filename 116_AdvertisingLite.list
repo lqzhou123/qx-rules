@@ -2,13 +2,13 @@
 # AUTHOR: blackmatrix7
 # REPO: https://github.com/blackmatrix7/ios_rule_script
 # UPDATED: 2025-12-08 02:03:37
-# LOCAL CANDIDATE 2026-11-21
-# HOST: 23752
-# HOST-KEYWORD: 187
-# HOST-SUFFIX: 13939
+# LOCAL UPDATED: 2026-11-22
+# HOST: 23755
+# HOST-KEYWORD: 185
+# HOST-SUFFIX: 13942
 # IP-CIDR: 186
 # IP6-CIDR: 1
-# TOTAL: 38065
+# TOTAL: 38069
 HOST,00-gov.cn,AdvertisingLite
 HOST,0024aadd.com,AdvertisingLite
 HOST,0026645142c89aeb1.com,AdvertisingLite
@@ -1623,6 +1623,7 @@ HOST,adrta.com,AdvertisingLite
 HOST,ads-4u.com,AdvertisingLite
 HOST,ads-elsevier.net,AdvertisingLite
 HOST,ads-for-free.com,AdvertisingLite
+HOST,ads-img-bak.xhscdn.com,AdvertisingLite
 HOST,ads-img-qc.xhscdn.com,AdvertisingLite
 HOST,ads-marketing-vivofs.vivo.com.cn,AdvertisingLite
 HOST,ads-pixiv.net,AdvertisingLite
@@ -1632,6 +1633,7 @@ HOST,ads-shopping.shouqianba.com,AdvertisingLite
 HOST,ads-union.jd.com,AdvertisingLite
 HOST,ads-video-al.xhscdn.com,AdvertisingLite
 HOST,ads-video-qc.xhscdn.com,AdvertisingLite
+HOST,ads-vp5.xhscdn.com,AdvertisingLite
 HOST,ads.95516.com,AdvertisingLite
 HOST,ads.adiquity.com,AdvertisingLite
 HOST,ads.admoda.com,AdvertisingLite
@@ -3562,6 +3564,7 @@ HOST,biberukalap.com,AdvertisingLite
 HOST,bibi100.com,AdvertisingLite
 HOST,bicarepterone.net,AdvertisingLite
 HOST,bid.run,AdvertisingLite
+HOST,bid.shanghailingye.cn,AdvertisingLite
 HOST,bidadx.com,AdvertisingLite
 HOST,bidderrtb.com,AdvertisingLite
 HOST,bidfilter.com,AdvertisingLite
@@ -32814,6 +32817,9 @@ HOST-SUFFIX,openbox.mobilem.360.cn,AdvertisingLite
 HOST-SUFFIX,opengam.com,AdvertisingLite
 HOST-SUFFIX,openrcv.baidu.com,AdvertisingLite
 HOST-SUFFIX,openstat.net,AdvertisingLite
+HOST-SUFFIX,openx.net,AdvertisingLite
+HOST-SUFFIX,openxenterprise.com,AdvertisingLite
+HOST-SUFFIX,openxmarket.asia,AdvertisingLite
 HOST-SUFFIX,opgirl-tmp.adbxb.cn,AdvertisingLite
 HOST-SUFFIX,ophoahik.net,AdvertisingLite
 HOST-SUFFIX,opjalajamak.com,AdvertisingLite
@@ -37827,7 +37833,6 @@ HOST-KEYWORD,o333o,AdvertisingLite
 HOST-KEYWORD,omgmta,AdvertisingLite
 HOST-KEYWORD,omniture,AdvertisingLite
 HOST-KEYWORD,onenews,AdvertisingLite
-HOST-KEYWORD,openx,AdvertisingLite
 HOST-KEYWORD,ossp.voicecloud.cn,AdvertisingLite
 HOST-KEYWORD,p3-pack.byteimg.com,AdvertisingLite
 HOST-KEYWORD,p3.pstatp.com,AdvertisingLite
@@ -37880,7 +37885,6 @@ HOST-KEYWORD,val.atm.youku.com,AdvertisingLite
 HOST-KEYWORD,vidoza,AdvertisingLite
 HOST-KEYWORD,vs10.bj2ct.u3.ucweb.com,AdvertisingLite
 HOST-KEYWORD,wgo.mmstat.com,AdvertisingLite
-HOST-KEYWORD,wixsite.com,AdvertisingLite
 HOST-KEYWORD,wlmonitor,AdvertisingLite
 HOST-KEYWORD,www.qmlog.cn,AdvertisingLite
 HOST-KEYWORD,xn--2qux23c9ziyrq,AdvertisingLite

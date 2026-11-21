@@ -13,6 +13,12 @@
 
 在 Quantumult X 的「分流规则」和「重写规则」中，分别将对应地址添加到「引用资源」。已有「AD 精简」时，在原位置替换地址。分流资源的强制策略设为 `REJECT`（`force-policy=reject`）。
 
+## 2026-11-22 更新
+
+- OpenX 分流收窄为 `openx.net`、`openxenterprise.com` 和 `openxmarket.asia` 三个域名后缀，避免误拦 OpenXLab。 [ACL4SSR 的修正](https://github.com/ACL4SSR/ACL4SSR/commit/431a0bdd5ff58f7544a73cf23d7f623ebaf5930e)
+- 移除 `wixsite.com` 关键词规则，避免把整个 Wix 免费托管域纳入拒绝范围。 [Wix 域名说明](https://support.wix.com/en/article/about-domains)
+- 新增小红书开屏素材域名 `ads-img-bak.xhscdn.com`、`ads-vp5.xhscdn.com`，以及领页广告竞价域名 `bid.shanghailingye.cn`，均按精确主机匹配。 [秋风小红书变更](https://github.com/TG-Twilight/AWAvenue-Ads-Rule/commit/a5af99ea6ed76facd752428cd684dad1f12e21bf) · [秋风领页变更](https://github.com/TG-Twilight/AWAvenue-Ads-Rule/commit/02737455da627c55b636e26057a422df9a59df01) · [anti-AD 规则对照](https://github.com/privacy-protection-tools/anti-AD/blob/master/anti-ad-quanx.txt)
+
 ## 来源与许可
 
 规则基于 blackmatrix7 的 `ios_rule_script`，按 GPL-2.0 发布。[上游仓库](https://github.com/blackmatrix7/ios_rule_script) · [许可证](LICENSE)
