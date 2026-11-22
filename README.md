@@ -9,7 +9,9 @@
 | 统一广告分流 | `[filter_remote]` | [AdvertisingMerged.list](https://raw.githubusercontent.com/lqzhou123/qx-rules/main/AdvertisingMerged.list) |
 | 统一广告重写 | `[rewrite_remote]` | [AdvertisingMerged.conf](https://raw.githubusercontent.com/lqzhou123/qx-rules/main/AdvertisingMerged.conf) |
 
-将两个地址分别添加到分流和重写的「引用资源」。**统一分流须省略 `force-policy`**。文件已逐条指定 `DIRECT` 或 `REJECT`，强制 `REJECT` 会覆盖 `h.trace.qq.com` 的直连规则。
+把两个 Raw 地址分别添加到 Quantumult X 的「分流 → 规则资源」和「重写 → 规则资源」。如果直接编辑配置，把示例里的两条引用加入现有的对应区段。
+
+**广告分流须省略 `force-policy`**，由规则文件逐条决定 `DIRECT` 或 `REJECT`。强制 `REJECT` 会覆盖 `h.trace.qq.com` 的直连规则。使用重写资源时需开启重写，HTTPS 重写还依赖 QX 的 MitM 设置。
 
 ```ini
 [filter_remote]
@@ -19,13 +21,13 @@ https://raw.githubusercontent.com/lqzhou123/qx-rules/main/AdvertisingMerged.list
 https://raw.githubusercontent.com/lqzhou123/qx-rules/main/AdvertisingMerged.conf, tag=广告重写, update-interval=604800, opt-parser=false, enabled=true
 ```
 
-### 从旧配置切换
+### 已有广告订阅时
 
-在 QX 配置副本中，将统一分流放在「直连规则」之后、「Zhihu」之前。停用旧广告分流 `ZhihuADs`、`AD补充`、`AD 精简` 以及旧重写 `AD 补充`、`AD 精简`，并在副本中停用两条旧本地报表规则。核对新订阅的加载顺序，再确认起点报表命中 `REWRITE / REJECT-200`，上游收发均为 `0 B`。
+如果已订阅本仓库的旧版，可在配置副本中用上面两条新资源替换原来的分流和重写引用。使用了其他来源的规则时，可按实际覆盖范围停用重复的条目。
 
 ## 附带分流
 
-[DirectAllowlist.list](https://raw.githubusercontent.com/lqzhou123/qx-rules/main/DirectAllowlist.list) 是基于 blackmatrix7 `Direct.list` 的前置直连白名单。用它原位替换「直连规则」的地址，沿用 `force-policy=direct`。分流顺序为 **直连白名单 → 广告分流 → Zhihu**。
+[DirectAllowlist.list](https://raw.githubusercontent.com/lqzhou123/qx-rules/main/DirectAllowlist.list) 是可选的直连白名单，基于 blackmatrix7 的 `Direct.list`。启用时，将它放在广告分流之前并设置 `force-policy=direct`，让名单里的域名优先直连。已有 blackmatrix7 的同类白名单时，可以原位替换地址。
 
 ```ini
 [filter_remote]
@@ -36,19 +38,19 @@ https://raw.githubusercontent.com/lqzhou123/qx-rules/main/DirectAllowlist.list, 
 - Trip.com／携程改为明确的域名后缀，保留 `trip.com`、`ctrip.com`、素材域 `c-ctrip.com` 和携程的 `.com.cn`、`.com.hk` 地址。[携程官网](https://www.ctrip.com/)
 - 移除已停服的 Let's Encrypt OCSP `o.lencr.org` 关键词条目。[停服公告](https://letsencrypt.org/2025/08/06/ocsp-service-has-reached-end-of-life/)
 
-如需回退，将「直连规则」的地址换回 [上游 Direct.list](https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Direct/Direct.list)。知乎业务直连沿用 [上游 Zhihu.list](https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Zhihu/Zhihu.list)，放在广告分流之后。
+此前使用上游白名单的读者，可通过恢复 [原 Direct.list 地址](https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Direct/Direct.list) 回退。
 
 ## 起点读书报表处理
 
 `h.trace.qq.com` 的调整源于 iOS 版起点读书翻页时的异常发热排查。真机对照中，原分流规则在 DNS 层拒绝该主机时，报表随翻页积压。加入精确直连后，旧报表消退，随后日常试用中暂未复现异常发热。
 
-统一分流内置 `HOST,h.trace.qq.com,DIRECT`，统一重写对该主机的明文 HTTP `POST /kv` 由 QX 本地返回空 200。这两条在此前的本地配置中已验证命中和 `0 B` 上游流量。合并版已通过离线回归，实际订阅加载与命中待真机确认。
+广告分流包含精确的 `HOST,h.trace.qq.com,DIRECT`。重写匹配该主机的明文 HTTP `POST /kv`，由 QX 在手机上返回空的 HTTP 200。此前以本地规则实测，命中请求的上游收发均为 `0 B`。此前手动添加过相同规则的用户，可在试用新订阅的配置副本中停用重复条目。
 
 ## 旧版与回退
 
-回退时停用两份统一资源，恢复原先启用的广告资源和两条本地报表规则。旧 AD 精简分流使用 `force-policy=reject`。[旧版分流](https://raw.githubusercontent.com/lqzhou123/qx-rules/main/116_AdvertisingLite.list) · [旧版重写](https://raw.githubusercontent.com/lqzhou123/qx-rules/main/127_AdvertisingLite.conf)
+回退时可恢复切换前的 QX 配置副本，包括原有的订阅和本地规则。以下是本仓库早期的 AD 精简资源，旧版分流使用 `force-policy=reject`。[旧版分流](https://raw.githubusercontent.com/lqzhou123/qx-rules/main/116_AdvertisingLite.list) · [旧版重写](https://raw.githubusercontent.com/lqzhou123/qx-rules/main/127_AdvertisingLite.conf)
 
-### 已继承的 AD 精简调整
+### 新版沿用的 AD 精简调整
 
 - OpenX 分流收窄为 `openx.net`、`openxenterprise.com` 和 `openxmarket.asia` 三个域名后缀，避免误拦 OpenXLab。 [ACL4SSR 的修正](https://github.com/ACL4SSR/ACL4SSR/commit/431a0bdd5ff58f7544a73cf23d7f623ebaf5930e)
 - 移除 `wixsite.com` 关键词规则，避免把整个 Wix 免费托管域纳入拒绝范围。 [Wix 域名说明](https://support.wix.com/en/article/about-domains)
