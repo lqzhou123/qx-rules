@@ -23,6 +23,21 @@ https://raw.githubusercontent.com/lqzhou123/qx-rules/main/AdvertisingMerged.conf
 
 在 QX 配置副本中，将统一分流放在「直连规则」之后、「Zhihu」之前。停用旧广告分流 `ZhihuADs`、`AD补充`、`AD 精简` 以及旧重写 `AD 补充`、`AD 精简`，并在副本中停用两条旧本地报表规则。核对新订阅的加载顺序，再确认起点报表命中 `REWRITE / REJECT-200`，上游收发均为 `0 B`。
 
+## 附带分流
+
+[DirectAllowlist.list](https://raw.githubusercontent.com/lqzhou123/qx-rules/main/DirectAllowlist.list) 是基于 blackmatrix7 `Direct.list` 的前置直连白名单。用它原位替换「直连规则」的地址，沿用 `force-policy=direct`。分流顺序为 **直连白名单 → 广告分流 → Zhihu**。
+
+```ini
+[filter_remote]
+https://raw.githubusercontent.com/lqzhou123/qx-rules/main/DirectAllowlist.list, tag=直连规则, force-policy=direct, update-interval=604800, opt-parser=false, enabled=true
+```
+
+- iCloud 改为 `icloud.com` 和 `icloud.com.cn` 两个域名后缀，避免把带相同字符串的第三方域名一起直连。[Apple 网络文档](https://support.apple.com/zh-cn/101555)
+- Trip.com／携程改为明确的域名后缀，保留 `trip.com`、`ctrip.com`、素材域 `c-ctrip.com` 和携程的 `.com.cn`、`.com.hk` 地址。[携程官网](https://www.ctrip.com/)
+- 移除已停服的 Let's Encrypt OCSP `o.lencr.org` 关键词条目。[停服公告](https://letsencrypt.org/2025/08/06/ocsp-service-has-reached-end-of-life/)
+
+如需回退，将「直连规则」的地址换回 [上游 Direct.list](https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Direct/Direct.list)。知乎业务直连沿用 [上游 Zhihu.list](https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Zhihu/Zhihu.list)，放在广告分流之后。
+
 ## 起点读书报表处理
 
 `h.trace.qq.com` 的调整源于 iOS 版起点读书翻页时的异常发热排查。真机对照中，原分流规则在 DNS 层拒绝该主机时，报表随翻页积压。加入精确直连后，旧报表消退，随后日常试用中暂未复现异常发热。
